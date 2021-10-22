@@ -72,7 +72,7 @@ int main(void) {
 		while ((c = getchar()) != '\n') {
 
 			if (c < '0' && c > '9' && c != ' ') {
-				printf("ERROR: the entered values is wrong!\n");
+				printf("Ошибка ввода!\n");
 				return 0;
 			}
 
