@@ -21,7 +21,7 @@ void checking_graph(int** mas, int size) {
 	for (int  j = 0; j < size; j++) {			// Проверка графа на отсутствие петель.
 		if (mas[j][j] != 0) {
 			printf("Введенный граф не является простым циклом\n");
-			return 0;
+			return;
 		}
 	}
 
@@ -29,7 +29,7 @@ void checking_graph(int** mas, int size) {
 		for (int i = 0; i < size; i++) {
 			if (mas[i][j] > 1) {
 				printf("Введенный граф не является простым циклом\n");
-				return 0;
+				return;
 			}
 		}
 
