@@ -21,7 +21,7 @@ void checking_graph(int** mas, int size) {
 	for (int  j = 0; j < size; j++) {			// Проверка графа на отсутствие петель.
 		if (mas[j][j] != 0) {
 			printf("Введенный граф не является простым циклом\n");
-			return;
+			return 0;
 		}
 	}
 
@@ -29,7 +29,7 @@ void checking_graph(int** mas, int size) {
 		for (int i = 0; i < size; i++) {
 			if (mas[i][j] > 1) {
 				printf("Введенный граф не является простым циклом\n");
-				return;
+				return 0;
 			}
 		}
 
@@ -43,7 +43,7 @@ void checking_graph(int** mas, int size) {
 		}
 		if (k != 2) {
 			printf("Введенный  не граф  является простым циклом\n");
-			return;
+			return 0;
 		}
 	}
 	printf("Введенный граф является простым циклом.\n");
@@ -73,7 +73,7 @@ int main(void) {
 
 			if (c < '0' && c > '9' && c != ' ') {
 				printf("ERROR: the entered values is wrong!\n");
-				return -1;
+				return 0;
 			}
 
 			if (c != ' ')
@@ -84,7 +84,7 @@ int main(void) {
 
 				if (i >= sizeM) {
 					printf("ОШИБКА: ширина матрицы превышает введенное ранее значение!\n ");
-					return -1;
+					return 0;
 				}
 
 				mas[i][j] = atoi(s);
@@ -102,7 +102,7 @@ int main(void) {
 
 		if (i >= sizeM) {
 			printf("ОШИБКА: ширина матрицы превышает введенное ранее значение!\n ");
-			return -1;
+			return 0;
 		}
 
 		mas[i][j] = atoi(s);
