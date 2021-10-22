@@ -43,7 +43,7 @@ void checking_graph(int** mas, int size) {
 		}
 		if (k != 2) {
 			printf("Введенный  не граф  является простым циклом\n");
-			return 0;
+			return;
 		}
 	}
 	printf("Введенный граф является простым циклом.\n");
