@@ -73,7 +73,7 @@ int main(void) {
 
 			if (c < '0' && c > '9' && c != ' ') {
 				printf("Ошибка ввода!\n");
-				return 0;
+				return -1;
 			}
 
 			if (c != ' ')
