@@ -84,7 +84,7 @@ int main(void) {
 
 				if (i >= sizeM) {
 					printf("ОШИБКА: ширина матрицы превышает введенное ранее значение!\n ");
-					return 0;
+					return -1;
 				}
 
 				mas[i][j] = atoi(s);
@@ -102,7 +102,7 @@ int main(void) {
 
 		if (i >= sizeM) {
 			printf("ОШИБКА: ширина матрицы превышает введенное ранее значение!\n ");
-			return 0;
+			return -1;
 		}
 
 		mas[i][j] = atoi(s);
