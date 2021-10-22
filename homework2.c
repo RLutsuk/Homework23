@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <limits.h> 
 
-
 void write_dot(FILE* fname, int** mas, int size) // Ввод графа на языке Dot.
 {
 	fprintf(fname, "graph G{\n");
@@ -34,8 +33,8 @@ void checking_graph(int** mas, int size) {
 			}
 		}
 
-	for (int k, j = 0; j < size; j++) {			// Проверка на принадлежность вершине только 2-х ребер, так как если у вершины больше двух ребер, то граф не является простым,
-		if (size == 2)							// так как если у вершины больше двух ребер, то граф не является простым.
+	for (int k, j = 0; j < size; j++) {			// Проверка графа на количество ребер, выходящих из вершины.
+		if (size == 2)							
 			break;								
 		k = 0; 									
 		for (int i = 0; i < size; i++) {
@@ -52,24 +51,30 @@ void checking_graph(int** mas, int size) {
 
 
 int main(void) {
-	int width;									
+	int sizeM;									
 	printf("Введите размер квадратной матрицы\n");
-	scanf("%d", &width);						//Пользователь вводит размер матрицы.
-	printf("\nВведите строки вашей матрицы. При нажатии \"ENTER\" вы перейдёте на новый столбец.");
+	scanf("%d", &sizeM);						//Пользователь вводит размер матрицы.
+	printf("\nВведите строки вашей матрицы. При нажатии \"ENTER\" вы перейдёте на новый столбец.\n");
+	printf("Учтите, что данная матрица является матрицой смежности, поэтому должна быть симметричной.\n");
 	printf("Если не указать число, оно будет равнно '0'.\n");
 	getchar();											
 	int** mas = NULL;									// Создание двумерного массива.
-	mas = (int**)malloc(sizeof(*mas) * width);			
-	for (int i = 0; i < width; i++) {					
-		mas[i] = (int*)malloc(sizeof(**mas) * width);		}
+	mas = (int**)malloc(sizeof(*mas) * sizeM);			
+	for (int i = 0; i < sizeM; i++) {					
+		mas[i] = (int*)malloc(sizeof(**mas) * sizeM);		}
 
 	char* s, c;
 
 	s = (char*)malloc(sizeof(char) * CHAR_MAX);
 
-	for (int i = 0, m = 0, j = 0; j < width; j++) {					//Заполняем массив числами.
+	for (int i = 0, m = 0, j = 0; j < sizeM; j++) {					//Заполняем массив числами.
 
 		while ((c = getchar()) != '\n') {
+
+			if (c < '0' && c > '9' && c != ' ') {
+				printf("ERROR: the entered values is wrong!\n");
+				return -1;
+			}
 
 			if (c != ' ')
 				s[m++] = c;
@@ -77,7 +82,7 @@ int main(void) {
 			else {
 				s[m] = '\0';
 
-				if (i >= width) {
+				if (i >= sizeM) {
 					printf("ОШИБКА: ширина матрицы превышает введенное ранее значение!\n ");
 					return -1;
 				}
@@ -95,16 +100,16 @@ int main(void) {
 		s[m] = '\0';
 		m = 0;
 
-		if (i >= width) {
+		if (i >= sizeM) {
 			printf("ОШИБКА: ширина матрицы превышает введенное ранее значение!\n ");
 			return -1;
 		}
 
 		mas[i][j] = atoi(s);
 
-		if (i < width) {             // Замена числа на 0, если оно не введено.
-			++i;					 // Следующий элемент.
-			while (i < width)
+		if (i < sizeM) {             // Замена числа на 0, если оно не введено.
+			++i;					
+			while (i < sizeM)
 				mas[i++][j] = 0;
 		}
 
@@ -116,13 +121,10 @@ int main(void) {
 	
 	FILE* fout;
 	fout = fopen("graph.gv", "w");
-
-	if (fout == NULL) {
-		perror("fopen()");
-		return EXIT_FAILURE;
-	}
-
-	write_dot(fout, mas, width);
+	
+	checking_graph(mas, sizeM);
+	
+	write_dot(fout, mas, sizeM);
 
 	free(mas); 						// Очищение массива.
 	mas = NULL;
